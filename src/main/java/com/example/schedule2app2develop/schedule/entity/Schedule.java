@@ -24,4 +24,9 @@ public class Schedule extends ScheduleTimeEntity {
         this.title = title;
         this.content = content;
     }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
