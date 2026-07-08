@@ -16,4 +16,6 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String author;
+    private String title;
+    private String content;
 }
