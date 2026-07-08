@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class SdCreateRequest {
 
-    private String author;
+    private String userId;
     private String title;
     private String content;
 }

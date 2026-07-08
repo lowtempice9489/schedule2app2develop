@@ -15,12 +15,12 @@ public class Schedule extends ScheduleTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String author;
+    private String userId;
     private String title;
     private String content;
 
-    public Schedule (String author, String title, String content) {
-        this.author = author;
+    public Schedule (String userId, String title, String content) {
+        this.userId = userId;
         this.title = title;
         this.content = content;
     }

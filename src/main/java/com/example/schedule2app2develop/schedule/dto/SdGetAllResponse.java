@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
 public class SdGetAllResponse {
 
     private final Long id;
-    private final String author;
+    private final String userId;
     private final String title;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
-    public SdGetAllResponse(Long id, String author, String title, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    public SdGetAllResponse(Long id, String userId, String title, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.id = id;
-        this.author = author;
+        this.userId = userId;
         this.title = title;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;

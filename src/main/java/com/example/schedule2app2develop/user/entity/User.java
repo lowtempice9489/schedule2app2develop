@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User extends UserTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

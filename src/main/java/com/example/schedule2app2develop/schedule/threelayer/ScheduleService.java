@@ -17,7 +17,7 @@ public class ScheduleService {
     @Transactional
     public SdCreateResponse create(SdCreateRequest request) {
         Schedule sd = new Schedule(
-                request.getAuthor(),
+                request.getUserId(),
                 request.getTitle(),
                 request.getContent()
 
@@ -25,7 +25,7 @@ public class ScheduleService {
         Schedule created = sdRepository.save(sd);
         return new SdCreateResponse(
                 created.getId(),
-                created.getAuthor(),
+                created.getUserId(),
                 created.getTitle(),
                 created.getContent(),
                 created.getCreatedAt(),
@@ -39,7 +39,7 @@ public class ScheduleService {
         return sdS.stream()
                 .map(Schedule -> new SdGetAllResponse(
                         Schedule.getId(),
-                        Schedule.getAuthor(),
+                        Schedule.getUserId(),
                         Schedule.getTitle(),
                         Schedule.getCreatedAt(),
                         Schedule.getModifiedAt()
@@ -53,7 +53,7 @@ public class ScheduleService {
         );
         return new SdGetOneResponse(
                 schedule.getId(),
-                schedule.getAuthor(),
+                schedule.getUserId(),
                 schedule.getTitle(),
                 schedule.getContent(),
                 schedule.getCreatedAt(),
