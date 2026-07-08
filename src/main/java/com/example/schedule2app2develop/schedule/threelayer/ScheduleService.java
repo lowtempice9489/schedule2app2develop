@@ -2,6 +2,8 @@ package com.example.schedule2app2develop.schedule.threelayer;
 
 import com.example.schedule2app2develop.schedule.dto.*;
 import com.example.schedule2app2develop.schedule.entity.Schedule;
+import com.example.schedule2app2develop.user.entity.User;
+import com.example.schedule2app2develop.user.threelayer.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,11 +15,15 @@ import java.util.List;
 public class ScheduleService {
 
     private final ScheduleRepository sdRepository;
+    private final UserRepository urRepository;
 
     @Transactional
     public SdCreateResponse create(SdCreateRequest request) {
+        User user = urRepository.findById(request.getUserId()).orElseThrow(
+                () -> new IllegalStateException("존재하지 않는 유저입니다.")
+        );
         Schedule sd = new Schedule(
-                request.getUserId(),
+                user,
                 request.getTitle(),
                 request.getContent()
 
@@ -25,7 +31,7 @@ public class ScheduleService {
         Schedule created = sdRepository.save(sd);
         return new SdCreateResponse(
                 created.getId(),
-                created.getUserId(),
+                created.getUser().getId(),
                 created.getTitle(),
                 created.getContent(),
                 created.getCreatedAt(),
@@ -39,7 +45,7 @@ public class ScheduleService {
         return sdS.stream()
                 .map(Schedule -> new SdGetAllResponse(
                         Schedule.getId(),
-                        Schedule.getUserId(),
+                        Schedule.getUser().getId(),
                         Schedule.getTitle(),
                         Schedule.getCreatedAt(),
                         Schedule.getModifiedAt()
@@ -53,7 +59,7 @@ public class ScheduleService {
         );
         return new SdGetOneResponse(
                 schedule.getId(),
-                schedule.getUserId(),
+                schedule.getUser().getId(),
                 schedule.getTitle(),
                 schedule.getContent(),
                 schedule.getCreatedAt(),

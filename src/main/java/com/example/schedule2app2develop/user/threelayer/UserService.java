@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-    private UserRepository urRepository;
+    private final UserRepository urRepository;
 
     @Transactional
     public UserCreateResponse create(UserCreateRequest request) {
@@ -37,6 +37,7 @@ public class UserService {
                 .map(user -> new UserGetAllResponse(
                         user.getId(),
                         user.getUsername(),
+                        user.getEmail(),
                         user.getCreatedAt(),
                         user.getModifiedAt()
                 )).toList();
