@@ -22,4 +22,9 @@ public class User extends UserTimeEntity {
         this.email = email;
 
     }
+
+    public void update(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
 }

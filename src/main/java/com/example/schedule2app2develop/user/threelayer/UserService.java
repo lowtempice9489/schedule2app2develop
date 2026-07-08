@@ -1,9 +1,6 @@
 package com.example.schedule2app2develop.user.threelayer;
 
-import com.example.schedule2app2develop.user.dto.UserCreateRequest;
-import com.example.schedule2app2develop.user.dto.UserCreateResponse;
-import com.example.schedule2app2develop.user.dto.UserGetAllResponse;
-import com.example.schedule2app2develop.user.dto.UserGetOneResponse;
+import com.example.schedule2app2develop.user.dto.*;
 import com.example.schedule2app2develop.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -57,5 +54,21 @@ public class UserService {
                 user.getCreatedAt(),
                 user.getModifiedAt()
         );
+    }
+    @Transactional
+    public UserUpdateResponse update(Long userId, UserUpdateRequest request) {
+        User user = urRepository.findById(userId).orElseThrow(
+                () -> new IllegalStateException("존재하지 않는 유저입니다.")
+        );
+        user.update(request.getUsername(), request.getEmail());
+        return new UserUpdateResponse(user.getId(), user.getUsername(), user.getEmail(), user.getModifiedAt());
+    }
+    @Transactional
+    public void delete(Long userId) {
+        boolean existence = urRepository.existsById(userId);
+        if (!existence) {
+            throw new IllegalStateException("없는 유저입니다.");
+        }
+        urRepository.deleteById(userId);
     }
 }

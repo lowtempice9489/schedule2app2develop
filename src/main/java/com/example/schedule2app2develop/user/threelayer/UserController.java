@@ -1,9 +1,6 @@
 package com.example.schedule2app2develop.user.threelayer;
 
-import com.example.schedule2app2develop.user.dto.UserCreateRequest;
-import com.example.schedule2app2develop.user.dto.UserCreateResponse;
-import com.example.schedule2app2develop.user.dto.UserGetAllResponse;
-import com.example.schedule2app2develop.user.dto.UserGetOneResponse;
+import com.example.schedule2app2develop.user.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +27,16 @@ public class UserController {
     @GetMapping("/users/{userId}")
     public ResponseEntity<UserGetOneResponse> getOne(@PathVariable Long userId) {
         return ResponseEntity.status(HttpStatus.OK).body(urService.getOne(userId));
+    }
+
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<UserUpdateResponse> update(@PathVariable Long userId, @RequestBody UserUpdateRequest request) {
+        return ResponseEntity.status(HttpStatus.OK).body(urService.update(userId, request));
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<Void> UDelate(@PathVariable Long userId) {
+        urService.delete(userId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
