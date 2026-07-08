@@ -63,4 +63,12 @@ public class ScheduleService {
         schedule.update(request.getTitle(), request.getContent());
         return new SdUpdateResponse(schedule.getId());
     }
+    @Transactional
+    public void delete(Long scheduleId) {
+        boolean existence = sdRepository.existsById(scheduleId);
+        if (!existence) {
+            throw new IllegalStateException("없는 게시글 입니다.");
+        }
+        sdRepository.deleteById(scheduleId);
+    }
 }

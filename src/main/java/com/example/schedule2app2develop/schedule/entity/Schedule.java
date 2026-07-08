@@ -29,4 +29,6 @@ public class Schedule extends ScheduleTimeEntity {
         this.title = title;
         this.content = content;
     }
+
+
 }
