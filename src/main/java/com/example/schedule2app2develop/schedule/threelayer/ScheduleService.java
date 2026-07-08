@@ -39,7 +39,10 @@ public class ScheduleService {
         return sdS.stream()
                 .map(Schedule -> new SdGetAllResponse(
                         Schedule.getId(),
-                        Schedule.getTitle()
+                        Schedule.getAuthor(),
+                        Schedule.getTitle(),
+                        Schedule.getCreatedAt(),
+                        Schedule.getModifiedAt()
                 )).toList();
 
     }
@@ -50,8 +53,11 @@ public class ScheduleService {
         );
         return new SdGetOneResponse(
                 schedule.getId(),
+                schedule.getAuthor(),
                 schedule.getTitle(),
-                schedule.getContent()
+                schedule.getContent(),
+                schedule.getCreatedAt(),
+                schedule.getModifiedAt()
         );
 
     }
@@ -61,7 +67,7 @@ public class ScheduleService {
                 () -> new IllegalStateException("존재하지 않는 일정입니다.")
         );
         schedule.update(request.getTitle(), request.getContent());
-        return new SdUpdateResponse(schedule.getId());
+        return new SdUpdateResponse(schedule.getId(), schedule.getTitle(), schedule.getContent(), schedule.getModifiedAt());
     }
     @Transactional
     public void delete(Long scheduleId) {
