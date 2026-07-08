@@ -2,10 +2,14 @@ package com.example.schedule2app2develop.schedule.threelayer;
 
 import com.example.schedule2app2develop.schedule.dto.SdCreateRequest;
 import com.example.schedule2app2develop.schedule.dto.SdCreateResponse;
+import com.example.schedule2app2develop.schedule.dto.SdGetAllResponse;
 import com.example.schedule2app2develop.schedule.entity.Schedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +34,17 @@ public class ScheduleService {
                 created.getCreatedAt(),
                 created.getModifiedAt()
         );
+
+    }
+    @Transactional(readOnly = true)
+    public List<SdGetAllResponse> getAll() {
+        List<Schedule> sdS = sdRepository.findAll();
+        List<SdGetAllResponse> dtos = new ArrayList<>();
+        for (Schedule sd : sdS) {
+            SdGetAllResponse dto = new SdGetAllResponse(sd.getId(), sd.getTitle());
+            dtos.add(dto);
+        }
+        return dtos;
 
     }
 }
