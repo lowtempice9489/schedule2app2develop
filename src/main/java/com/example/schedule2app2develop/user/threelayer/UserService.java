@@ -16,9 +16,20 @@ public class UserService {
 
     @Transactional
     public UserCreateResponse create(UserCreateRequest request) {
+        if((request.getPassword() == null || request.getPassword().length() < 8)) {
+            throw new IllegalStateException("비밀번호는 최소 8자 이상 입니다.");
+        }
+        if (request.getUsername() == null || request.getUsername().isBlank()) {
+            throw new IllegalStateException("유저아이디는 필수 입니다.");
+        }
+        if (request.getEmail() == null || request.getEmail().isBlank()) {
+            throw new IllegalStateException("이메일은 필수입니다.");
+        }
         User Ur = new User(
+
                 request.getUsername(),
-                request.getEmail()
+                request.getEmail(),
+                request.getPassword()
 
         );
         User created = urRepository.save(Ur);
@@ -26,6 +37,7 @@ public class UserService {
                 created.getId(),
                 created.getUsername(),
                 created.getEmail(),
+                created.getPassword(),
                 created.getCreatedAt(),
                 created.getModifiedAt()
         );
