@@ -84,7 +84,7 @@ public class ScheduleService {
                 () -> new IllegalStateException("없는 게시글 입니다.")
         );
         if (!schedule.getUser().getId().equals(loginUserId)) {
-            throw new IllegalStateException("본인의 일정만 수정할 수 있습니다.");
+            throw new IllegalStateException("본인의 일정만 삭제할 수 있습니다.");
         }
         sdRepository.deleteById(scheduleId);
     }
