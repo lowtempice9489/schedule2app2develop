@@ -25,7 +25,7 @@ public class ScheduleController {
         if (loginUserId == null) {
             throw new IllegalStateException("로그인이 필요합니다.");
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(sdService.create(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(sdService.create(loginUserId, request));
     }
 
     @GetMapping("/schedules")

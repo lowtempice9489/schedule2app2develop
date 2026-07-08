@@ -18,8 +18,8 @@ public class ScheduleService {
     private final UserRepository urRepository;
 
     @Transactional
-    public SdCreateResponse create(SdCreateRequest request) {
-        User user = urRepository.findById(request.getUserId()).orElseThrow(
+    public SdCreateResponse create(Long loginUserId, SdCreateRequest request) {
+        User user = urRepository.findById(loginUserId).orElseThrow(
                 () -> new IllegalStateException("존재하지 않는 유저입니다.")
         );
         Schedule sd = new Schedule(
