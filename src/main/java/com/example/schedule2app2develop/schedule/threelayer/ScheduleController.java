@@ -3,6 +3,7 @@ package com.example.schedule2app2develop.schedule.threelayer;
 import com.example.schedule2app2develop.schedule.dto.SdCreateRequest;
 import com.example.schedule2app2develop.schedule.dto.SdCreateResponse;
 import com.example.schedule2app2develop.schedule.dto.SdGetAllResponse;
+import com.example.schedule2app2develop.schedule.dto.SdGetOneResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,4 +27,9 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(sdService.getAll());
     }
 
+    @GetMapping("/schedules/{scheduleId}")
+    public ResponseEntity<SdGetOneResponse> getOne(@PathVariable Long scheduleId) {
+        return ResponseEntity.status(HttpStatus.OK).body(sdService.getOne(scheduleId));
+
+    }
 }

@@ -3,6 +3,7 @@ package com.example.schedule2app2develop.schedule.threelayer;
 import com.example.schedule2app2develop.schedule.dto.SdCreateRequest;
 import com.example.schedule2app2develop.schedule.dto.SdCreateResponse;
 import com.example.schedule2app2develop.schedule.dto.SdGetAllResponse;
+import com.example.schedule2app2develop.schedule.dto.SdGetOneResponse;
 import com.example.schedule2app2develop.schedule.entity.Schedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,18 @@ public class ScheduleService {
                         Schedule.getId(),
                         Schedule.getTitle()
                 )).toList();
+
+    }
+    @Transactional(readOnly = true)
+    public SdGetOneResponse getOne(Long scheduleId) {
+        Schedule schedule = sdRepository.findById(scheduleId).orElseThrow(
+                () -> new IllegalStateException("존재하지 않는 일정입니다.")
+        );
+        return new SdGetOneResponse(
+                schedule.getId(),
+                schedule.getTitle(),
+                schedule.getContent()
+        );
 
     }
 }
