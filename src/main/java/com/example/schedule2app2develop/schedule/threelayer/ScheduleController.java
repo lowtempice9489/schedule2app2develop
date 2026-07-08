@@ -50,7 +50,7 @@ public class ScheduleController {
         if (loginUserId == null) {
             throw new IllegalStateException("로그인이 필요합니다.");
         }
-        return  ResponseEntity.status(HttpStatus.OK).body(sdService.update(scheduleId, request));
+        return  ResponseEntity.status(HttpStatus.OK).body(sdService.update(scheduleId, loginUserId, request));
     }
 
     @DeleteMapping("/schedules/{scheduleId}")
@@ -60,7 +60,7 @@ public class ScheduleController {
         if (loginUserId == null) {
             throw new IllegalStateException("로그인이 필요합니다.");
         }
-        sdService.delete(scheduleId);
+        sdService.delete(scheduleId, loginUserId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
