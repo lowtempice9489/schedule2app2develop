@@ -3,13 +3,11 @@ package com.example.schedule2app2develop.user.threelayer;
 import com.example.schedule2app2develop.user.dto.UserCreateRequest;
 import com.example.schedule2app2develop.user.dto.UserCreateResponse;
 import com.example.schedule2app2develop.user.dto.UserGetAllResponse;
+import com.example.schedule2app2develop.user.dto.UserGetOneResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,10 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<UserGetAllResponse>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(urService.getAll());
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<UserGetOneResponse> getOne(@PathVariable Long userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(urService.getOne(userId));
     }
 }
