@@ -25,4 +25,5 @@ public class ScheduleController {
     public ResponseEntity<List<SdGetAllResponse>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(sdService.getAll());
     }
+
 }
