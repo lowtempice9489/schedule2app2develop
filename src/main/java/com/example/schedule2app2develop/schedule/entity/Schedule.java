@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "schedules")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Schedule {
+public class Schedule extends ScheduleTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +18,10 @@ public class Schedule {
     private String author;
     private String title;
     private String content;
+
+    public Schedule (String author, String title, String content) {
+        this.author = author;
+        this.title = title;
+        this.content = content;
+    }
 }
