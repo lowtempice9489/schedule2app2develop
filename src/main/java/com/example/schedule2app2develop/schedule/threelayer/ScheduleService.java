@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,12 +38,11 @@ public class ScheduleService {
     @Transactional(readOnly = true)
     public List<SdGetAllResponse> getAll() {
         List<Schedule> sdS = sdRepository.findAll();
-        List<SdGetAllResponse> dtos = new ArrayList<>();
-        for (Schedule sd : sdS) {
-            SdGetAllResponse dto = new SdGetAllResponse(sd.getId(), sd.getTitle());
-            dtos.add(dto);
-        }
-        return dtos;
+        return sdS.stream()
+                .map(Schedule -> new SdGetAllResponse(
+                        Schedule.getId(),
+                        Schedule.getTitle()
+                )).toList();
 
     }
 }
